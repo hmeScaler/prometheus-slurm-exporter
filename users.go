@@ -26,7 +26,7 @@ import (
 )
 
 func UsersData() []byte {
-        cmd := exec.Command("/cm/shared/apps/slurm/current/bin/squeue","-a","-r","-h","-o %A|%u|%T|%C|%b")
+        cmd := exec.Command("/usr/local/slurm/bin/squeue","-a","-r","-h","-o %A|%u|%T|%C|%b")
         stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatal(err)
@@ -76,8 +76,8 @@ func ParseUsersMetrics(input []byte) map[string]*UserJobMetrics {
 				for _, g := range gresParts {
 					if strings.Contains(g, "gpu:") {
 						gpuParts := strings.Split(g, ":")
-						if len(gpuParts) == 3 {
-							numGPUs, err := strconv.ParseFloat(gpuParts[2], 64)
+						if len(gpuParts) == 2 {
+							numGPUs, err := strconv.ParseFloat(gpuParts[1], 64)
 							if err != nil {
 								log.Printf("Erreur de parsing du nombre de GPU : %v", err)
 							}
@@ -85,6 +85,18 @@ func ParseUsersMetrics(input []byte) map[string]*UserJobMetrics {
 						}
 					}
 				}
+				//for _, g := range gresParts {
+				//	if strings.Contains(g, "gpu:") {
+				//		gpuParts := strings.Split(g, ":")
+				//		if len(gpuParts) == 3 {
+				//			numGPUs, err := strconv.ParseFloat(gpuParts[2], 64)
+				//			if err != nil {
+				//				log.Printf("Erreur de parsing du nombre de GPU : %v", err)
+				//			}
+				//			gpus += numGPUs
+				//		}
+				//	}
+				//}
 			}
 
 			//log.Printf("User: %s, State: %s, CPUs: %f, GPUs: %f", user, state, cpus, gpus) // Ajout du log
