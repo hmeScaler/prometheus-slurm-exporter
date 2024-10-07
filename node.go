@@ -114,7 +114,7 @@ func ParseNodeMetrics(input []byte) map[string]*NodeMetrics {
 // NodeData executes the sinfo command to get data for each node
 // It returns the output of the sinfo command
 func NodeData() []byte {
-	cmd := exec.Command("/usr/local/slurm/bin/sinfo", "-h", "-N", "-O", "NodeList:30 ,AllocMem: ,Memory: ,CPUsState: ,StateLong: ,Gres: ,GresUsed:")
+	cmd := exec.Command("/cm/shared/apps/slurm/current/bin/sinfo", "-h", "-N", "-O", "NodeList:30 ,AllocMem: ,Memory: ,CPUsState: ,StateLong: ,Gres: ,GresUsed:")
 	out, err := cmd.Output()
 	if err != nil {
 		log.Fatal(err)

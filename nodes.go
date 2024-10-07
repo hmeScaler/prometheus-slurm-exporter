@@ -154,8 +154,8 @@ func ParseNodesMetrics(input []byte) *NodesMetrics {
 
 // Execute the sinfo command and return its output
 func NodesData() []byte {
-	//cmd := exec.Command("/usr/local/slurm/bin/sinfo", "-h", "-o %D,%T,%N")
-	cmd := exec.Command("/usr/local/slurm/bin/sinfo", "-h", "-N", "-o %N,%T")
+	//cmd := exec.Command("/cm/shared/apps/slurm/current/bin/sinfo", "-h", "-o %D,%T,%N")
+	cmd := exec.Command("/cm/shared/apps/slurm/current/bin/sinfo", "-h", "-N", "-o %N,%T")
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatal(err)
